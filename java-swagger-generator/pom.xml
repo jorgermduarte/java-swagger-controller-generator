@@ -36,7 +36,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>22</java.version>
 		<version.swagger.codegen>2.2.1</version.swagger.codegen>
-		<yaml.file>${project.basedir}/src/main/resources/api.yaml</yaml.file>
+		<yaml.file>${project.basedir}/api-contract/api.yaml</yaml.file>
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
 		<generated-sources-java-path>main/java</generated-sources-java-path>
 	</properties>
