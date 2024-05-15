@@ -1,0 +1,62 @@
+swagger: '2.0'
+info:
+  title: Example API
+  description: Example API with two controllers
+  version: 1.0.0
+host: localhost:8080
+basePath: /api
+schemes:
+  - http
+paths:
+  /greeting:
+    get:
+      summary: Get a greeting
+      operationId: getGreeting
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Hello, World!"
+  /user:
+    post:
+      summary: Create a user
+      operationId: createUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: New user data
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "John Doe"
+              email:
+                type: string
+                example: "john.doe@example.com"
+      responses:
+        '201':
+          description: User successfully created
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1
+              name:
+                type: string
+                example: "John Doe"
+              email:
+                type: string
+                example: "john.doe@example.com"
