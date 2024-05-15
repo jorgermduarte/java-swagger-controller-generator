@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Example API
+  description: Example API with two controllers
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /greeting:
+    get:
+      summary: Get a greeting
+      operationId: getGreeting
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Hello, World!"
+  /user:
+    post:
+      summary: Create a user
+      operationId: createUser
+      requestBody:
+        description: New user data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                email:
+                  type: string
+                  example: "john.doe@example.com"
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "John Doe"
+                  email:
+                    type: string
+                    example: "john.doe@example.com"

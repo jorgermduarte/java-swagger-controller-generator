@@ -25,20 +25,34 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations-jakarta</artifactId>
+			<version>2.2.20</version>
+		</dependency>
+		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
 			<version>1.6.14</version>
 		</dependency>
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<version>2.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>22</java.version>
-		<version.swagger.codegen>2.2.1</version.swagger.codegen>
-		<yaml.file>${project.basedir}/api-contract/api.yaml</yaml.file>
-		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
-		<generated-sources-java-path>main/java</generated-sources-java-path>
 	</properties>
 
 	<build>
@@ -48,30 +62,33 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>io.swagger</groupId>
-				<artifactId>swagger-codegen-maven-plugin</artifactId>
-				<version>${version.swagger.codegen}</version>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>7.1.0</version>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-sources</phase>
+					</execution>
+				</executions>
 				<configuration>
-					<inputSpec>${yaml.file}</inputSpec>
+					<inputSpec>${project.basedir}/api-contract/openapi.yaml</inputSpec>
+					<generatorName>spring</generatorName>
+					<packageName>pt.jorgeduarte.javaswaggergenerator</packageName>
+					<apiPackage>pt.jorgeduarte.javaswaggergenerator.swagger.api</apiPackage>
+					<modelPackage>pt.jorgeduarte.javaswaggergenerator.swagger.model</modelPackage>
 					<configOptions>
-						<sourceFolder>${generated-sources-java-path}</sourceFolder>
+						<inputSpec>${project.basedir}/api-contract/openapi.yaml</inputSpec>
 						<interfaceOnly>true</interfaceOnly>
+						<useSpringBoot3>true</useSpringBoot3>
 						<hideGenerationTimestamp>true</hideGenerationTimestamp>
-						<jakarta>true</jakarta>
-						<useBeanValidation>true</useBeanValidation>
-						<dateLibrary>java8</dateLibrary>
-						<java21>true</java21>
+						<java22>true</java22>
+						<serviceInterface>true</serviceInterface>
 					</configOptions>
-					<output>${generated-sources-path}</output>
-					<language>spring</language>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>io.swagger</groupId>
-						<artifactId>swagger-annotations</artifactId>
-						<version>1.6.14</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
